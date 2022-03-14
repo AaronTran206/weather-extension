@@ -5,24 +5,16 @@ import { Add as AddIcon } from "@mui/icons-material"
 import "fontsource-roboto"
 import "./popup.css"
 import WeatherCard from "./WeatherCard"
-import {
-  setStoredCities,
-  getStoredCities,
-  setStoredOptions,
-  getStoredOptions,
-  LocalStorageOptions,
-} from "../utils/storage"
+import { setStoredCities, getStoredCities } from "../utils/storage"
 
 //Display the weatherCard function onto the popup window
 const App: React.FC<{}> = () => {
   const [cities, setCities] = useState<string[]>(["Seattle", "Tokyo", "Error"])
   const [cityInput, setCityInput] = useState<string>("")
-  const [options, setOptions] = useState<LocalStorageOptions | null>(null)
 
   //when component mounts, updates, and unmounts, the cities in chrome.local.storage will get loaded into the state cities
   useEffect(() => {
     getStoredCities().then((cities) => setCities(cities))
-    getStoredOptions().then((options) => setOptions(options))
   }, [])
 
   //AddIcon functionality
@@ -45,22 +37,10 @@ const App: React.FC<{}> = () => {
     })
   }
 
-  const handleTempScaleButton = () => {
-    const updatedOptions: LocalStorageOptions = {
-      ...options,
-      tempScale: options.tempScale === "metric" ? "imperial" : "metric",
-    }
-    setStoredOptions(updatedOptions).then(() => {
-      setOptions(updatedOptions)
-    })
-  }
-
-  if (!options) return null
-
   //Input field. Import from material-ui to fix the css of input field and also to provide the AddIcon icon
   return (
     <Box mx="8px" my="16px">
-      <Grid container justifyContent="space-evenly">
+      <Grid container>
         <Grid item>
           <Paper>
             <Box px="15px" py="5py">
@@ -75,21 +55,11 @@ const App: React.FC<{}> = () => {
             </Box>
           </Paper>
         </Grid>
-        <Grid item>
-          <Paper>
-            <Box px="5px" py="2px">
-              <IconButton onClick={handleTempScaleButton}>
-                {options.tempScale === "metric" ? "\u2103" : "\u2109"}
-              </IconButton>
-            </Box>
-          </Paper>
-        </Grid>
       </Grid>
 
       {cities.map((city, index) => (
         <WeatherCard
           city={city}
-          tempScale={options.tempScale}
           key={index}
           onDelete={() => handleCityDelete(index)}
         />

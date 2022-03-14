@@ -27,12 +27,11 @@ export type OpenWeatherTempScale = "metric" | "imperial"
 
 //async await fetch function for OpenWeather API. Purpose is to contact the API using API key and return the data for use in other functions.
 export async function fetchOpenWeatherData(
-  city: string,
-  tempScale: OpenWeatherTempScale
+  city: string
 ): Promise<OpenWeatherData> {
   //fetch api request
   const res = await fetch(
-    `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=${tempScale}&appid=${API_KEY}`
+    `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}`
   )
 
   //throw error

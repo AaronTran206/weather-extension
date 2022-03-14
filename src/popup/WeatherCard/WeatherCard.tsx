@@ -7,7 +7,11 @@ import {
   Typography,
   Button,
 } from "@mui/material"
-import { fetchOpenWeatherData, OpenWeatherData } from "../../utils/api"
+import {
+  fetchOpenWeatherData,
+  OpenWeatherData,
+  OpenWeatherTempScale,
+} from "../../utils/api"
 
 //Weathercard Container react function
 const WeatherCardContainer: React.FC<{
@@ -36,8 +40,9 @@ type WeatherCardState = "loading" | "error" | "ready"
 //logic for weathercard container
 const WeatherCard: React.FC<{
   city: string
+  tempScale: OpenWeatherTempScale
   onDelete?: () => void
-}> = ({ city, onDelete }) => {
+}> = ({ city, tempScale, onDelete }) => {
   //useState for weather data
   const [weatherData, setWeatherData] = useState<OpenWeatherData | null>(null)
   //useState for state of the cards
@@ -45,13 +50,13 @@ const WeatherCard: React.FC<{
 
   //Fetch data for city information and plug into OpenWeatherData interface
   useEffect(() => {
-    fetchOpenWeatherData(city)
+    fetchOpenWeatherData(city, tempScale)
       .then((data) => {
         setWeatherData(data)
         setCardState("ready")
       })
       .catch((err) => setCardState("error"))
-  }, [city])
+  }, [city, tempScale])
 
   //if cardState is loading or error, then display a message on the card stating the state of card
   if (cardState == "loading" || cardState == "error") {
