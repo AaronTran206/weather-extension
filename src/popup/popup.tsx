@@ -1,28 +1,40 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 import { Box, Grid, InputBase, IconButton, Paper } from "@mui/material"
 import { Add as AddIcon } from "@mui/icons-material"
 import "fontsource-roboto"
 import "./popup.css"
 import WeatherCard from "./WeatherCard"
+import { setStoredCities, getStoredCities } from "../utils/storage"
 
 //Display the weatherCard function onto the popup window
 const App: React.FC<{}> = () => {
   const [cities, setCities] = useState<string[]>(["Seattle", "Tokyo", "Error"])
   const [cityInput, setCityInput] = useState<string>("")
 
+  //when component mounts, updates, and unmounts, the cities in chrome.local.storage will get loaded into the state cities
+  useEffect(() => {
+    getStoredCities().then((cities) => setCities(cities))
+  }, [])
+
   //AddIcon functionality
   const handleCityButtonClick = () => {
     if (cityInput === "") return
 
-    setCities([...cities, cityInput])
-    setCityInput("")
+    const updatedCities = [...cities, cityInput]
+    setStoredCities(updatedCities).then(() => {
+      setCities(updatedCities)
+      setCityInput("")
+    })
   }
 
   //Delete function
   const handleCityDelete = (index: number) => {
     cities.splice(index, 1)
-    setCities([...cities])
+    const updatedCities = [...cities]
+    setStoredCities(updatedCities).then(() => {
+      setCities(updatedCities)
+    })
   }
 
   //Input field. Import from material-ui to fix the css of input field and also to provide the AddIcon icon
