@@ -50,12 +50,14 @@ const WeatherCard: React.FC<{
 
   //Fetch data for city information and plug into OpenWeatherData interface
   useEffect(() => {
+    //put city and tempScale as parameters for fetch request
     fetchOpenWeatherData(city, tempScale)
       .then((data) => {
         setWeatherData(data)
         setCardState("ready")
       })
       .catch((err) => setCardState("error"))
+    //run useEffect whenever the city or tempScale parameter is changed
   }, [city, tempScale])
 
   //if cardState is loading or error, then display a message on the card stating the state of card
@@ -76,13 +78,17 @@ const WeatherCard: React.FC<{
     <WeatherCardContainer onDelete={onDelete}>
       <Typography variant="h5">{weatherData.name}</Typography>
       <Typography variant="body1">
-        {Math.round(weatherData.main.temp)}
+        {Math.round(weatherData.main.temp)}&nbsp;
+        {tempScale === "metric" ? "\u2103" : "\u2109"}
       </Typography>
       <Typography variant="body1">
-        Feels like: {Math.round(weatherData.main.feels_like)}
+        Feels like:&nbsp;
+        {Math.round(weatherData.main.feels_like)}&nbsp;
+        {tempScale === "metric" ? "\u2103" : "\u2109"}
       </Typography>
     </WeatherCardContainer>
   )
 }
 
+//export the component to be loaded in the popup
 export default WeatherCard

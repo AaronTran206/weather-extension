@@ -45,6 +45,7 @@ const App: React.FC<{}> = () => {
     })
   }
 
+  //when temp scale button is clicked, change the icon to other tempscale option
   const handleTempScaleButton = () => {
     const updatedOptions: LocalStorageOptions = {
       ...options,
