@@ -90,5 +90,5 @@ const WeatherCard: React.FC<{
   )
 }
 
-//export the component to be loaded in the popup
+//export the component to be loaded in the popup. The arguments are passed in as properties to the component in the popup window.
 export default WeatherCard
