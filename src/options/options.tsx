@@ -26,6 +26,7 @@ const App: React.FC<{}> = () => {
     getStoredOptions().then((options) => setOptions(options))
   }, [])
 
+  //Set state of options to content inside text field
   const handleHomeCityChange = (homeCity: string) => {
     console.log(homeCity)
     setOptions({
@@ -34,6 +35,7 @@ const App: React.FC<{}> = () => {
     })
   }
 
+  //when save button is clicked, set the value of text field to option which then gets saved to the chrome local storage. Delay the saving process to let user know that saving worked
   const handleSaveButtonClick = () => {
     setFormState("saving")
     setStoredOptions(options).then(() => {
@@ -45,6 +47,7 @@ const App: React.FC<{}> = () => {
 
   if (!options) return null
 
+  //gray out fields while form is saving to improve user experience
   const isFieldsDisabled = formState === "saving"
 
   return (
