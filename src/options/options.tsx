@@ -8,6 +8,7 @@ import {
   TextField,
   Grid,
   Button,
+  Switch,
 } from "@mui/material"
 import "./options.css"
 import "fontsource-roboto"
@@ -22,6 +23,8 @@ type FormState = "ready" | "saving"
 const App: React.FC<{}> = () => {
   const [options, setOptions] = useState<LocalStorageOptions | null>(null)
   const [formState, setFormState] = useState<FormState>("ready")
+
+  //retrieve option settings from local storage for use in App
   useEffect(() => {
     getStoredOptions().then((options) => setOptions(options))
   }, [])
@@ -32,6 +35,14 @@ const App: React.FC<{}> = () => {
     setOptions({
       ...options,
       homeCity,
+    })
+  }
+
+  //synchronize state of options in local storage to the one in this App
+  const handleAutoOverlayChange = (hasAutoOverlay: boolean) => {
+    setOptions({
+      ...options,
+      hasAutoOverlay,
     })
   }
 
@@ -66,6 +77,15 @@ const App: React.FC<{}> = () => {
                   onChange={(e) => handleHomeCityChange(e.target.value)}
                   disabled={isFieldsDisabled}
                 ></TextField>
+              </Grid>
+              <Grid item>
+                <Typography variant="body1">Toggle Auto Overlay</Typography>
+                <Switch
+                  color="primary"
+                  checked={options.hasAutoOverlay}
+                  onChange={(e, checked) => handleAutoOverlayChange(checked)}
+                  disabled={isFieldsDisabled}
+                />
               </Grid>
               <Grid item>
                 <Button

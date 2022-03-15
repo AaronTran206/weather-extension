@@ -1,9 +1,9 @@
 import { setStoredCities, setStoredOptions } from "../utils/storage"
 
-// TODO: background script
 chrome.runtime.onInstalled.addListener(() => {
   setStoredCities([])
   setStoredOptions({
+    hasAutoOverlay: false,
     homeCity: "Seattle",
     tempScale: "imperial",
   })

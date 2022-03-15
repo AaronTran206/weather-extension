@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react"
 import ReactDOM from "react-dom"
 import { Box, Grid, InputBase, IconButton, Paper } from "@mui/material"
-import { Add as AddIcon } from "@mui/icons-material"
+import {
+  Add as AddIcon,
+  PictureInPicture as PictureInPictureIcon,
+} from "@mui/icons-material"
 import "fontsource-roboto"
 import "./popup.css"
 import WeatherCard from "../components/WeatherCard"
@@ -12,6 +15,7 @@ import {
   getStoredOptions,
   LocalStorageOptions,
 } from "../utils/storage"
+import { Messages } from "../utils/messages"
 
 //Display the weatherCard function onto the popup window
 const App: React.FC<{}> = () => {
@@ -56,6 +60,21 @@ const App: React.FC<{}> = () => {
     })
   }
 
+  //grab current active tab. If there is more than 0 tabs open, send message to contentScript to toggle the overlay along with the tab ID
+  const handleOverlayButton = () => {
+    chrome.tabs.query(
+      {
+        active: true,
+        currentWindow: true,
+      },
+      (tabs) => {
+        if (tabs.length > 0) {
+          chrome.tabs.sendMessage(tabs[0].id, Messages.TOGGLE_OVERLAY)
+        }
+      }
+    )
+  }
+
   if (!options) return null
 
   //Input field. Import from material-ui to fix the css of input field and also to provide the AddIcon icon
@@ -78,9 +97,18 @@ const App: React.FC<{}> = () => {
         </Grid>
         <Grid item>
           <Paper>
-            <Box px="5px" py="2px">
+            <Box py="4px">
               <IconButton onClick={handleTempScaleButton}>
                 {options.tempScale === "metric" ? "\u2103" : "\u2109"}
+              </IconButton>
+            </Box>
+          </Paper>
+        </Grid>
+        <Grid item>
+          <Paper>
+            <Box py="4px">
+              <IconButton onClick={handleOverlayButton}>
+                <PictureInPictureIcon />
               </IconButton>
             </Box>
           </Paper>
