@@ -16,6 +16,7 @@ import {
   LocalStorageOptions,
 } from "../utils/storage"
 import { Messages } from "../utils/messages"
+import "./popup.css"
 
 //Display the weatherCard function onto the popup window
 const App: React.FC<{}> = () => {
@@ -80,25 +81,25 @@ const App: React.FC<{}> = () => {
   //Input field. Import from material-ui to fix the css of input field and also to provide the AddIcon icon
   return (
     <Box mx="8px" my="16px">
-      <Grid container justifyContent="space-evenly">
+      <Grid container justifyContent={"space-evenly"}>
         <Grid item>
           <Paper>
-            <Box px="15px" py="5py">
+            <Box textAlign="center" px="15px" py="5py">
               <InputBase
                 placeholder="Add a city name"
                 value={cityInput}
                 onChange={(e) => setCityInput(e.target.value)}
               />
               <IconButton onClick={handleCityButtonClick}>
-                <AddIcon />
+                <AddIcon style={{ fontSize: 35 }} />
               </IconButton>
             </Box>
           </Paper>
         </Grid>
         <Grid item>
           <Paper>
-            <Box py="4px">
-              <IconButton onClick={handleTempScaleButton}>
+            <Box textAlign="center" py="4px">
+              <IconButton size="medium" onClick={handleTempScaleButton}>
                 {options.tempScale === "metric" ? "\u2103" : "\u2109"}
               </IconButton>
             </Box>
@@ -106,9 +107,9 @@ const App: React.FC<{}> = () => {
         </Grid>
         <Grid item>
           <Paper>
-            <Box py="4px">
+            <Box textAlign="center" py="4px">
               <IconButton onClick={handleOverlayButton}>
-                <PictureInPictureIcon />
+                <PictureInPictureIcon style={{ fontSize: 28 }} />
               </IconButton>
             </Box>
           </Paper>

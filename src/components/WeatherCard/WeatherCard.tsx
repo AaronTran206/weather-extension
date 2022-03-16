@@ -6,12 +6,15 @@ import {
   CardActions,
   Typography,
   Button,
+  Grid
 } from "@mui/material"
 import {
+  getWeatherIconSrc,
   fetchOpenWeatherData,
   OpenWeatherData,
   OpenWeatherTempScale,
 } from "../../utils/api"
+import "./WeatherCard.css"
 
 //Weathercard Container react function
 const WeatherCardContainer: React.FC<{
@@ -25,7 +28,7 @@ const WeatherCardContainer: React.FC<{
         <CardActions>
           {onDelete && (
             <Button color="error" onClick={onDelete}>
-              Delete
+              <Typography className="weatherCard-body">Delete</Typography>
             </Button>
           )}
         </CardActions>
@@ -64,7 +67,8 @@ const WeatherCard: React.FC<{
   if (cardState == "loading" || cardState == "error") {
     return (
       <WeatherCardContainer onDelete={onDelete}>
-        <Typography variant="body1">
+        <Typography className="weatherCard-title">{city}</Typography>
+        <Typography className="weatherCard-body">
           {cardState == "loading"
             ? "Loading..."
             : "Error: could not retrieve weather data for this city"}
@@ -76,16 +80,29 @@ const WeatherCard: React.FC<{
   //return the weathercard to display in the popup window. This weathercard component contains the weather conditions at the specified city
   return (
     <WeatherCardContainer onDelete={onDelete}>
-      <Typography variant="h5">{weatherData.name}</Typography>
-      <Typography variant="body1">
-        {Math.round(weatherData.main.temp)}&nbsp;
-        {tempScale === "metric" ? "\u2103" : "\u2109"}
-      </Typography>
-      <Typography variant="body1">
-        Feels like:&nbsp;
-        {Math.round(weatherData.main.feels_like)}&nbsp;
-        {tempScale === "metric" ? "\u2103" : "\u2109"}
-      </Typography>
+      <Grid container justifyContent={'space-around'}>
+        <Grid item>
+          <Typography className="weatherCard-title">{weatherData.name}</Typography>
+          <Typography className="weatherCard-temp">
+            {Math.round(weatherData.main.temp)}&nbsp;
+            {tempScale === "metric" ? "\u2103" : "\u2109"}
+          </Typography>
+          <Typography className="weatherCard-body">
+            Feels like:&nbsp;
+            {Math.round(weatherData.main.feels_like)}&nbsp;
+            {tempScale === "metric" ? "\u2103" : "\u2109"}
+          </Typography>
+        </Grid>
+        <Grid item>
+          {
+          weatherData.weather.length > 0 && <><img src={getWeatherIconSrc(weatherData.weather[0].icon)}/>
+          <Typography className="weatherCard-body">{weatherData.weather[0].main}</Typography>
+          </>
+          }
+        </Grid>
+        
+      </Grid>
+      
     </WeatherCardContainer>
   )
 }

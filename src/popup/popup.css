@@ -4,3 +4,8 @@ body {
   height: 512px;
   font-family: "Roboto";
 }
+
+.unicode-characters {
+  font-size: 5px;
+  vertical-align: middle;
+}
