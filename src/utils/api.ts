@@ -1,4 +1,4 @@
-const API_KEY = "3e8563fa30ffa4c71b5d1b61c75ef10b"
+const API_KEY = "AN_API_KEY"
 
 //interface object for OpenWeather API ver. 2.5. Closely resembles the structure of the API data.
 export interface OpenWeatherData {
