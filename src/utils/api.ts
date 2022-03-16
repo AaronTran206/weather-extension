@@ -45,6 +45,7 @@ export async function fetchOpenWeatherData(
   return data
 }
 
+//api fetch to retrieve icon of weather
 export function getWeatherIconSrc(iconCode: string) {
   return `http://openweathermap.org/img/wn/${iconCode}@2x.png`
 }
