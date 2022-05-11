@@ -1,33 +1,13 @@
-# React Chrome Extension Boilerplate
+# Weather Extension
 
-## Getting Started
+## Summary <br>
 
-1. `npm i` to install dependancies
-2. `npm start` to start running the fast development mode Webpack build process that bundle files into the `dist` folder
-3. `npm i --save-dev <package_name>` to install new packages
+This app shows the weather information of cities that are input by the user. The weather cards show the city name, temperature, what the temperature feels like, an icon showing the type of weather, and a description of the weather icon. There are also additional features that are available to the user.
 
-## Loading The Chrome Extension
+## Additional Features<br>
 
-1. Open Chrome and navigate to `chrome://extensions/`
-2. Toggle on `Developer mode` in the top right corner
-3. Click `Load unpacked`
-4. Select the entire `dist` folder
-
-# Important Initial Steps
-
-1. `git init` to start a new git repo for tracking your changes, do an initial base commit with all the default files
-2. Update `package.json`, important fields include `author`, `version`, `name` and `description`
-3. Update `manifest.json`, important fields include `version`, `name` and `description`
-4. Update `webpack.commmon.js`, the title in the `getHtmlPlugins` function should be your extension name
-
-# Production Build
-
-1. `npm run build` to generate a minimized production build in the `dist` folder
-2. ZIP the entire `dist` folder (e.g. `dist.zip`)
-3. Publish the ZIP file on the Chrome Web Store Developer Dashboard!
-
-## Important Default Boilerplate Notes
-
-- Folders get flattened, static references to images from HTML do not need to be relative (i.e. `icon.png` instead of `../static/icon.png`)
-- Importing local ts/tsx/css files should be relative, since Webpack will build a dependancy graph using these paths
-- Update the manifest file as per usual for chrome related permissions, references to files in here should also be flattened and not be relative
+- The user can change the display style from Fahrenheit to Celsius if wanted.
+- The user can toggle a modal that overlays on the browser screen. This modal shows compact information of the weather.
+- In the options page, the user can set a home city. The home city temperature will be tracked and updated periodically and can be seen overlaying on the weather extension icon.
+- After adding a city to the app. It will be stored in an array which will be loaded the next time the app is open.
+- The cities that are in the stored array can be removed from the array as well. This can be done by clicking the "Delete" button.
