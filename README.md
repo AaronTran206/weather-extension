@@ -2,7 +2,7 @@
 
 ## Summary <br>
 
-This app shows the weather information of cities that are input by the user. The weather cards show the city name, temperature, what the temperature feels like, an icon showing the type of weather, and a description of the weather icon. There are also additional features that are available to the user.
+This app shows the weather information of cities that are input by the user. The weather cards show the city name, temperature, what the temperature feels like, an icon showing the type of weather, and a description of the weather icon.
 
 ## Additional Features<br>
 
